@@ -38,10 +38,19 @@ for index, row in newFilteredData.iterrows():
 # Data that has been further filtered to exclude indivduals without a stated occupation AND a stated short description
 
 
-# Filters the data so that all the people with unaccounted for occupations and manners of death are excluded (Data set is too large to worry about these individuals)
-finalFilteredData = newFilteredData[newFilteredData[['Occupation', 'Manner of death']].notnull().all(1)]
+# Filters the data so that all the people with unaccounted for occupations, manners of death, and country are excluded (Data set is too large to worry about these individuals)
+finalFilteredData = newFilteredData[newFilteredData[['Occupation', 'Manner of death', 'Country']].notnull().all(1)]
 
 # Filters out anyone without a short description
-finalFilteredData = finalFilteredData[finalFilteredData['Short description'].str.len() > 11]
+finalFilteredData = finalFilteredData[(finalFilteredData['Short description'].str.len() > 11) | finalFilteredData['Short description'].notnull()]
+
+# Sorts the rows in ascending order based off birth year (earliest births are at bottom of the dataframe)
+finalFilteredSortedData = finalFilteredData.sort_values(by='Birth year', ascending=True)
 
 
+"""
+for index, row in finalFilteredSortedData.iterrows():
+    print(index, row['Birth year'])
+"""
+
+print(finalFilteredSortedData.tail)
