@@ -38,9 +38,10 @@ for index, row in newFilteredData.iterrows():
 # Data that has been further filtered to exclude indivduals without a stated occupation AND a stated short description
 
 
-finalFilteredData = newFilteredData.loc[newFilteredData['Short description'] != '11']
-finalFilteredData = finalFilteredData[finalFilteredData[['Occupation', 'Manner of death']].notnull().all(1)]
+# Filters the data so that all the people with unaccounted for occupations and manners of death are excluded (Data set is too large to worry about these individuals)
+finalFilteredData = newFilteredData[newFilteredData[['Occupation', 'Manner of death']].notnull().all(1)]
 
-print(finalFilteredData)
+# Filters out anyone without a short description
+finalFilteredData = finalFilteredData[finalFilteredData['Short description'].str.len() > 11]
 
-# Find way to filter out date only descriptions
+
