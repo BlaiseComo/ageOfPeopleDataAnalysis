@@ -6,6 +6,7 @@ these names can be conveniently accessed (likely in a .txt file) to be further r
 
 # Pandas will be the primary tool to extract data 
 import pandas as pd
+import math
 
 primaryDataFrame = pd.read_csv('AgeDataset-V1.csv')
 
@@ -53,4 +54,11 @@ for index, row in finalFilteredSortedData.iterrows():
     print(index, row['Birth year'])
 """
 
-print(finalFilteredSortedData.tail)
+for i in range(-2, 21):
+
+    currentDataFrame = pd.DataFrame()
+
+    if math.floor(finalFilteredSortedData['Birth year'] / 100) == i:
+
+        
+
